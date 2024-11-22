@@ -14,16 +14,38 @@ export class FormationComponent implements OnInit {
   constructor(private formationService:  FormationService , public authService: AuthService) {
     
   }
-  ngOnInit(): void{
+ /*  ngOnInit(): void{
     this.formations = this.formationService.listeFormation();
 
-  }
-supprimerFormation(f: Formation)
+  } */
+    ngOnInit(): void { 
+      this.chargerFormations(); 
+      
+    } 
+
+/* supprimerFormation(f: Formation)
 {
 
 let conf = confirm("Etes-vous sûr ?");
 if (conf)
 this.formationService.supprimerFormation(f);
-}
+} */
+
+chargerFormations(){ 
+  this.formationService.listeFormation().subscribe(prods => { 
+    console.log(prods); 
+    this.formations = prods; 
+  });  
+} 
+
+supprimerFormation(p: Formation) 
+  { 
+    let conf = confirm("Etes-vous sûr ?"); 
+    if (conf) 
+    this.formationService.supprimerFormation(p.idFormation!).subscribe(() => { 
+      console.log("formation supprimé"); 
+      this.chargerFormations(); 
+         }); 
+  } 
 
 }

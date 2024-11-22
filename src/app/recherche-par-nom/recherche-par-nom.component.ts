@@ -18,8 +18,14 @@ export class RechercheParNomComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.formations = this.formationService.listeFormation();
-    this.allFormations = this.formations;
+  /*   this.formations = this.formationService.listeFormation();
+    this.allFormations = this.formations; */
+
+    this.formationService.listeFormation().subscribe((chans) => {
+      console.log(chans);
+      this.allFormations = chans;
+      this. formations = chans; // Pour que le tableau soit affiché par défaut
+    });
     
     
   }

@@ -8,16 +8,20 @@ import { RechercheParThemeComponent } from './recherche-par-theme/recherche-par-
 import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
-import { ProduitGuard } from './produit.guard';
+import { produitGuard } from './produit.guard';
+import { ListeThemeComponent } from './liste-theme/liste-theme.component';
 
 
 const routes: Routes = [{path : "formation" , component : FormationComponent},
-                        {path : "add-formation", component : AddFormationComponent,canActivate:[ProduitGuard]},
+                        {path : "add-formation", component : AddFormationComponent,canActivate:[produitGuard]},
                         {path: "updateFormation/:id", component: UpdateFormationComponent},
                         {path:"rechercheParTheme", component:RechercheParThemeComponent},
                         {path: "rechercheParNom", component : RechercheParNomComponent},
                         {path: 'login', component: LoginComponent},
                         {path: 'app-forbidden', component: ForbiddenComponent},
+                        {path: 'listeTheme', component: ListeThemeComponent },
+                        
+
 
 
                                            

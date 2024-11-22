@@ -24,7 +24,7 @@
             <label>Date de fin</label>
             <input type="date" formControlName="datefin" class="form-control">
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <label class="form-label">Email</label>
             <input type="text" formControlName="email" class="form-control">
             <span *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched" class="text-danger">
@@ -33,7 +33,7 @@
             <span *ngIf="myForm.controls['email'].hasError('email') && myForm.controls['email'].touched" class="text-danger">
                 Email est non valide
             </span>
-        </div>
+        </div> -->
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Mode Formation</label>
             <br>
@@ -46,9 +46,9 @@
         <div class="mt-2">
             <label>Thème</label>
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <select class="form-select" formControlName="idCat">
-                    <option *ngFor="let cat of themes" [value]="cat.idTheme">
-                        {{cat.nomTheme}}
+                <select class="form-select" formControlName="idTheme">
+                    <option *ngFor="let thm of themes" [value]="thm.idTheme">
+                        {{thm.nomTheme}}
                     </option>
                 </select>
             </div>

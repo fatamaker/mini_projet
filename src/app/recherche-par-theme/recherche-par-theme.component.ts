@@ -18,12 +18,19 @@ export class RechercheParThemeComponent implements OnInit {
     private router :Router,
    private formationService : FormationService) { }
 
-  ngOnInit() {
-    this.themes=this.formationService.listerTheme();
-    this.formations = [] ;
-  }
+   ngOnInit(): void {
+    
+    this.formationService.listerTheme().subscribe((f) => {
+      this.themes =f._embedded.themes;
+      console.log(f);
+    });
+    this.formations = []; // Initialize formations to an empty array
+}
+
   onChange(){
-    this.formations=this.formationService.rechercherParTheme(this.idTheme);
+    this.formationService.rechercherParTheme(this.idTheme).subscribe((f) => {
+      this.formations =f;
+    });
   }
 
 }

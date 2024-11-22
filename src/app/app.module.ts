@@ -13,6 +13,10 @@ import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.
 import { SearchFilterPipe } from './search-filter.pipe';
 import { LoginComponent } from './login/login.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { ListeThemeComponent } from './liste-theme/liste-theme.component';
+import { UpdateThemeComponent } from './update-theme/update-theme.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
         RechercheParNomComponent,
         SearchFilterPipe,
         LoginComponent,
-        ForbiddenComponent
+        ForbiddenComponent,
+        ListeThemeComponent,
+        UpdateThemeComponent,
+        UpdateThemeComponent,
         
     
   ],
@@ -33,7 +40,8 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideClientHydration()

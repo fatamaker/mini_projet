@@ -1,8 +1,8 @@
+import { Theme } from './../model/theme.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Formation } from '../model/formation.model';
 import { FormationService } from '../service/formation.service';
-import { Theme } from '../model/theme.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../model/user.model';
 
@@ -14,8 +14,8 @@ import { User } from '../model/user.model';
 })
 export class UpdateFormationComponent implements OnInit {
   currentFormation = new Formation();
-  themes?: Theme[];
-  updatedThemId!: number;
+  themes: Theme[] = [];
+  updatedThemId: number | undefined = 0;
   myForm!: FormGroup;
   public user = new User();
 
@@ -27,9 +27,24 @@ export class UpdateFormationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.themes = this.formationService.listerTheme();
-    this.currentFormation = this.formationService.consulterformation(this.activatedRoute.snapshot.params['id']);
-    this.updatedThemId = this.currentFormation.theme?.idTheme || 0;
+    //this.themes = this.formationService.listerTheme();
+
+    this.formationService.listerTheme().subscribe((f) => {
+      console.log(f);
+      this.themes = f._embedded.themes;
+    });
+  
+    
+  
+      this.formationService.consulterFormation(this.activatedRoute.snapshot.params['id']). 
+      subscribe((f) => {
+        this.currentFormation = f;
+        }) ; 
+      
+
+  
+    /* this.currentFormation = this.formationService.consulterFormation(this.activatedRoute.snapshot.params['id']);
+    this.updatedThemId = this.currentFormation.theme?.idTheme || 0; */
 
     this.myForm = this.formBuilder.group({
       idFormation: [this.currentFormation.idFormation],
@@ -37,20 +52,30 @@ export class UpdateFormationComponent implements OnInit {
       prixFormation: [this.currentFormation.prixFormation, Validators.required],
       datedebut: [this.currentFormation.datedebut, Validators.required],
       datefin: [this.currentFormation.datefin, Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      // email: ['', [Validators.required, Validators.email]],
       modeFormation: [this.currentFormation.modeFormation, Validators.required],
-      idCat: [this.updatedThemId, Validators.required]
+      idTheme: [this.updatedThemId, Validators.required]
     });
+
+
   }
 
   updateFormation() {
-    if (this.myForm.valid) {
+    /* if (this.myForm.valid) {
       this.currentFormation.theme = this.formationService.consulterTheme(this.updatedThemId);
       this.formationService.updateFormation(this.currentFormation);
       this.router.navigate(['formation']);
         ( error: any) => console.error('Error updating formation:', error)
       ;
-    }
+    } */
+
+      this.currentFormation.theme = this.themes!.find(
+        (f) => f.idTheme == this.updatedThemId
+      )!;
+
+      this.formationService.updateFormation(this.currentFormation).subscribe((f) => { 
+        this.router.navigate(['formations']); }  
+        );
   }
   
 

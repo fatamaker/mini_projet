@@ -1,18 +1,29 @@
-import { ActivatedRouteSnapshot, CanActivate, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { AuthService } from './service/auth.service';
 
-export class ProduitGuard implements CanActivate {
-  constructor (private authService: AuthService,
-    private route : Router) {}
 
-    canActivate(route: ActivatedRouteSnapshot, tate: RouterStateSnapshot): boolean {
-    if (this.authService.isAdmin())
-    return true;
-    else
-    {
-    this.route.navigate(['app-forbidden']);
-    return false;
+
+@Injectable({
+  providedIn: 'root',
+})
+
+export class produitGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    if (this.authService.isAdmin()) return true;
+    else {
+      this.router.navigate(['app-forbidden']);
+      return false;
     }
-};
+  }
 }
 
