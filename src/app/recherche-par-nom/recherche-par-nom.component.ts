@@ -29,6 +29,15 @@ export class RechercheParNomComponent implements OnInit {
     
     
   }
+
+  rechercherForms() {
+    this.formationService.rechercherParNom(this.nomFormation).subscribe((chans) => {
+      this.formations = chans;
+      console.log(chans);
+    });
+  }
+
+
  
    onKeyUp(filterText : string){
     

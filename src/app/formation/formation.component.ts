@@ -19,7 +19,11 @@ export class FormationComponent implements OnInit {
 
   } */
     ngOnInit(): void { 
-      this.chargerFormations(); 
+      this.formationService.listeFormation().subscribe((chans) => {
+        console.log(chans);
+        this.formations = chans;
+        this.chargerFormations();
+      }); 
       
     } 
 

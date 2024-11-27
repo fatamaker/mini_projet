@@ -17,7 +17,10 @@ export class ListeThemeComponent implements OnInit{
 
   constructor(private FormationService: FormationService) {}
   ngOnInit(): void {
-    this.chargerTheme(); //this ONNE
+    this.FormationService.listerTheme(). 
+subscribe(cats => {this.themes = cats._embedded.themes; 
+console.log(cats); 
+}); 
     
   }
 
@@ -27,12 +30,17 @@ export class ListeThemeComponent implements OnInit{
     this.chargerTheme(); // Actualise l'affichage de la liste après l'ajout
   }
 
-
   ThemeUpdated(theme: Theme) {
     console.log('Équipe reçue du composant updatedequipe:', theme);
-    this.FormationService.ajouterTheme(theme);
-    this.chargerTheme();
-
+    
+   /*  if (this.ajout) {
+      this.FormationService.ajouterTheme(theme);
+    } else {
+      this.FormationService.mettreAJourTheme(theme);
+      this.ajout = true; 
+    }
+    this.chargerTheme(); */
+    this.FormationService.ajouterTheme(theme).subscribe(()=> this.chargerTheme());
     
   }
 
@@ -52,9 +60,24 @@ export class ListeThemeComponent implements OnInit{
     }
     
 
-  updateTheme(theme: Theme) {
+/*   updateTheme(theme: Theme) {
     this.updatedThm = theme;
     this.ajout = false;
+  }
+ */
+  updateCat(cat: Theme) {
+    console.log("Cat updated event", cat); // Journal pour déboguer
+    this.FormationService.updateCategorie(cat) // Appel API pour mettre à jour la catégorie
+      .subscribe(
+        () => {
+          this.chargerTheme(); // Recharge la liste des catégories après mise à jour
+          this.ajout = false; // Cache le formulaire d'ajout
+          console.log("Catégorie mise à jour avec succès");
+        },
+        (error) => {
+          console.error("Erreur lors de la mise à jour de la catégorie", error);
+        }
+      );
   }
 
   

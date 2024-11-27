@@ -15,8 +15,9 @@ import { User } from '../model/user.model';
 export class UpdateFormationComponent implements OnInit {
   currentFormation = new Formation();
   themes: Theme[] = [];
-  updatedThemId: number | undefined = 0;
+  updatedThemId!: number;
   myForm!: FormGroup;
+  idtheme!:number;
   public user = new User();
 
   constructor(
@@ -39,6 +40,7 @@ export class UpdateFormationComponent implements OnInit {
       this.formationService.consulterFormation(this.activatedRoute.snapshot.params['id']). 
       subscribe((f) => {
         this.currentFormation = f;
+        this.updatedThemId=this.currentFormation.theme?.idTheme!;
         }) ; 
       
 
@@ -47,14 +49,13 @@ export class UpdateFormationComponent implements OnInit {
     this.updatedThemId = this.currentFormation.theme?.idTheme || 0; */
 
     this.myForm = this.formBuilder.group({
-      idFormation: [this.currentFormation.idFormation],
-      nomFormation: [this.currentFormation.nomFormation, Validators.required],
-      prixFormation: [this.currentFormation.prixFormation, Validators.required],
-      datedebut: [this.currentFormation.datedebut, Validators.required],
-      datefin: [this.currentFormation.datefin, Validators.required],
-      // email: ['', [Validators.required, Validators.email]],
-      modeFormation: [this.currentFormation.modeFormation, Validators.required],
-      idTheme: [this.updatedThemId, Validators.required]
+      idFormation: [''],
+      nomFormation: ['', Validators.required],
+      prixFormation: ['', Validators.required],
+      datedebut: ['', Validators.required],
+      datefin: ['', Validators.required],
+      modeFormation: ['', Validators.required],
+      Theme: ['', Validators.required],
     });
 
 
@@ -74,7 +75,7 @@ export class UpdateFormationComponent implements OnInit {
       )!;
 
       this.formationService.updateFormation(this.currentFormation).subscribe((f) => { 
-        this.router.navigate(['formations']); }  
+        this.router.navigate(['formation']); }  
         );
   }
   

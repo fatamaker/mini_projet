@@ -106,7 +106,7 @@ return this.http.put<Formation>(this.apiUrl,f, httpOptions);
   } */
 
     listerTheme():Observable<ThemeWrapper> {
-        return  this.http.get<ThemeWrapper>(this. apiURLCat);
+        return  this.http.get<ThemeWrapper>(this.apiURLCat);
       }
     
     
@@ -116,12 +116,17 @@ return this.http.put<Formation>(this.apiUrl,f, httpOptions);
   }
   rechercherParTheme(idTheme: number): 
     Observable<Formation[]> {
-      const url = `${this.apiUrl}/chansgen/${idTheme}`;
+      const url = `${this.apiUrl}/formthem/${idTheme}`;
       return this.http.get<Formation[]>(url);
 
   
-    
     }
+
+
+    rechercherParNom(nom: string): Observable<Formation[]> {
+      const url = `${this.apiUrl}/formsByName/${nom}`;
+      return this.http.get<Formation[]>(url);
+    }
 
    /*  ajouterTheme(Theme: Theme): Theme {
       const newId =
@@ -134,14 +139,25 @@ return this.http.put<Formation>(this.apiUrl,f, httpOptions);
     } */
     
     
-      ajouterTheme(cat: Theme):Theme {
-  const id = this.themes.length +1
+      ajouterTheme(cat: Theme):Observable<Theme>{ 
+ /*  const id = this.themes.length +1
   cat.idTheme=id;
   this.themes.push({...cat}); // ... pour faire un copie de objet cat
-  return cat;
+  return cat; */
+  return this.http.post<Theme>(this.apiURLCat, cat, httpOptions); 
 }
       
+mettreAJourTheme(theme: Theme): void {
+  const index = this.themes.findIndex((g) => g.idTheme=== theme.idTheme);
+  if (index !== -1) {
+    this.themes[index] = theme;
+  }
+}
  
- 
+
+updateCategorie(cat:Theme): Observable<void> {
+  const url = `${this.apiUrl}/${cat.idTheme}`; // Assurez-vous que `id` est une propriété existante
+  return this.http.put<void>(url, cat);
+}
 
 }

@@ -3,41 +3,31 @@
     <div>
         <h2>Modifier une formation :</h2>
     </div>
-    <form (ngSubmit)="updateFormation()" [formGroup]="myForm">
+    <form (ngSubmit)="updateFormation()">
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label>ID formation</label>
-            <input type="text" formControlName="idFormation" class="form-control">
+            <input type="text" [(ngModel)]="currentFormation.idFormation" name="idFormation" class="form-control">
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Nom Formation</label>
-            <input type="text" formControlName="nomFormation" class="form-control">
+            <input type="text" [(ngModel)]="currentFormation.nomFormation" name="nomFormation" class="form-control">
         </div>
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Prix Formation</label>
-            <input type="number" formControlName="prixFormation" class="form-control">
+            <input type="number" [(ngModel)]="currentFormation.prixFormation" name="prixFormation" class="form-control">
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date de debut</label>
-            <input type="date" formControlName="datedebut" class="form-control">
+            <input type="date" [(ngModel)]="currentFormation.datedebut" name="datedebut" class="form-control">
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4">
             <label>Date de fin</label>
-            <input type="date" formControlName="datefin" class="form-control">
+            <input type="date" [(ngModel)]="currentFormation.datefin" name="datefin" class="form-control">
         </div>
-        <!-- <div class="col-md-6">
-            <label class="form-label">Email</label>
-            <input type="text" formControlName="email" class="form-control">
-            <span *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched" class="text-danger">
-                Email est obligatoire
-            </span>
-            <span *ngIf="myForm.controls['email'].hasError('email') && myForm.controls['email'].touched" class="text-danger">
-                Email est non valide
-            </span>
-        </div> -->
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label>Mode Formation</label>
             <br>
-            <select class="form-select" formControlName="modeFormation">
+            <select class="form-select" [(ngModel)]="currentFormation.modeFormation" name="modeFormation">
                 <option selected>Mode de la formation</option>
                 <option value="en ligne">En ligne</option>
                 <option value="en personne">En personne</option>
@@ -46,14 +36,17 @@
         <div class="mt-2">
             <label>Thème</label>
             <div class="col-sm-4 col-md-4 col-lg-4">
-                <select class="form-select" formControlName="idTheme">
+                <select class="form-select" [(ngModel)]="updatedThemId" name="Theme">
                     <option *ngFor="let thm of themes" [value]="thm.idTheme">
                         {{thm.nomTheme}}
                     </option>
                 </select>
             </div>
             <br>
+
+            
             <button type="submit" class="btn btn-success">Modifier</button>
         </div>
     </form>
-</div>
+  </div>
+  

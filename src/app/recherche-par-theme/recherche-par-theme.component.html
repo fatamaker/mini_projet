@@ -6,11 +6,13 @@
         <select class="form-select" id="idTheme" name="idTheme"
         [(ngModel)]="idTheme" (change)="onChange()">
         
-        <option *ngFor="let them of themes" value="{{them.idTheme}}">
-        {{them.nomTheme}}
+        <option *ngFor="let theme of themes" value="{{theme.idTheme}}">
+        {{theme.nomTheme}}
         </option>
         </select>
         </div>
+
+        
     <br>
     <div class="card shadow mb-4">
     <div class="card-body">

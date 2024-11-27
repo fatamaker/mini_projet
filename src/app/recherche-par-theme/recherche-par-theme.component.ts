@@ -11,7 +11,7 @@ import { Theme } from '../model/theme.model';
 })
 export class RechercheParThemeComponent implements OnInit {
   formations!: Formation[];
-  themes! : Theme[];
+  themes!: Theme[];
   idTheme!: number;
   
   constructor(private activatedRoute: ActivatedRoute,
@@ -24,7 +24,9 @@ export class RechercheParThemeComponent implements OnInit {
       this.themes =f._embedded.themes;
       console.log(f);
     });
-    this.formations = []; // Initialize formations to an empty array
+
+
+    
 }
 
   onChange(){
@@ -32,5 +34,17 @@ export class RechercheParThemeComponent implements OnInit {
       this.formations =f;
     });
   }
+  supprimerFormation(form: Formation) {
+    let conf = confirm('Etes-vous sûr ?');
+    if (conf) {
+      this.formationService.supprimerFormation(form.idFormation!).subscribe(() => {
+        // Met à jour la liste des chansons après la suppression
+        this.formations = this.formations.filter(
+          (c) => c.idFormation !== form.idFormation
+        );
+        console.log('Chanson supprimée');
+      });
+    }
+  }
 
 }
